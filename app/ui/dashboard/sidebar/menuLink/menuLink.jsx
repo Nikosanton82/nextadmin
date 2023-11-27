@@ -6,7 +6,6 @@ import Link from "next/link";
 const menuLink = ({ item }) => {
   const pathname = usePathname();
 
-  console.log(pathname);
   return (
     <Link
       href={item.path}
