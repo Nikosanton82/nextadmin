@@ -1,5 +1,5 @@
 const page = () => {
-  const handleAction = async (formData) => {
+  const handleForm = async (formData) => {
     "use server";
     console.log(formData);
     const username = formData.get("username");
@@ -7,7 +7,7 @@ const page = () => {
   };
   return (
     <div>
-      <form action={handleAction}>
+      <form action={handleForm}>
         <input type="text" name="username" />
         <button>Send</button>
       </form>

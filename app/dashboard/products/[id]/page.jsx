@@ -1,28 +1,42 @@
 import styles from "../../../../app/ui/dashboard/products/singleProduct/singleProduct.module.css";
 import Image from "next/image";
+import { fetchProduct } from "../../../lib/data";
+import { updateProduct } from "../../../lib/actions";
 
-const SingleProductPage = () => {
+const SingleProductPage = async ({ params }) => {
+  const { id } = params;
+  const product = await fetchProduct(id);
+
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <div className={styles.imageContainer}>
           <Image src="/noavatar.png" alt="" fill />
         </div>
-        IPhone
+        {product.title}
       </div>
       <div className={styles.formContainer}>
-        <form action="" className={styles.form}>
+        <form action={updateProduct} className={styles.form}>
+          <input type="hidden" name="id" value={product.id} />
           <label>Title</label>
-          <input type="text" name="title" placeholder="IPhone 15 Pro Max" />
+          <input type="text" name="title" placeholder={product.title} />
           <label>Price</label>
-          <input type="number" name="price" placeholder="$1342" />
+          <input type="number" name="price" placeholder={product.price} />
           <label>Stock</label>
-          <input type="number" name="stock" placeholder="72" />
+          <input type="number" name="stock" placeholder={product.stock} />
           <label>Color</label>
-          <input type="text" name="color" placeholder="Red" />
+          <input
+            type="text"
+            name="color"
+            placeholder={product.color || "color"}
+          />
           <label>Size</label>
-          <textarea type="text" name="size" placeholder="xl" />
-          <label>Category</label>
+          <textarea
+            type="text"
+            name="size"
+            placeholder={product.size || "size"}
+          />
+          <label>Cat</label>
           <select name="cat" id="cat">
             <option value="kitchen">Kitchen</option>
             <option value="computers">Computers</option>
@@ -32,7 +46,7 @@ const SingleProductPage = () => {
             name="desc"
             id="desc"
             rows="10"
-            placeholder="Description"
+            placeholder={product.desc}
           ></textarea>
           <button>Update</button>
         </form>
